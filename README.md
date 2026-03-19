@@ -10,6 +10,25 @@ User → OpenVPN → Private VPC → EKS Cluster → Kubernetes Workloads
                                       ↓
                                Prometheus → Grafana
 ```
+## GitOps Integration
+This project uses a separate GitOps repository to manage Kubernetes workloads:
+
+👉 https://github.com/SuheyrM/eks-gitops
+
+ArgoCD continuously syncs applications from this repository into the EKS cluster.
+
+## GitOps Repository Structure
+```
+apps/
+  demo-nginx/      # Stateless demo app (validates ArgoCD)
+  rabbitmq/        # Stateful message broker (Helm chart)
+  monitoring/      # Prometheus + Grafana stack
+```
+## Deployment Flow
+```
+Terraform → EKS Cluster → ArgoCD → GitHub (eks-gitops) → Kubernetes Apps
+```
+
 ## Key Components:
 
  - VPC (10.0.0.0/16)
