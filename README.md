@@ -1,4 +1,5 @@
 ## Production-Grade Private EKS Cluster with OpenVPN, GitOps, and Observability
+This project demonstrates building a secure, production-grade private Kubernetes platform on AWS using Terraform, GitOps (ArgoCD), stateful applications (RabbitMQ), and full observability with Prometheus and Grafana.
 
 ## Architecture Diagram
 
@@ -111,7 +112,7 @@ apps/rabbitmq-consumer/consumer.py
 - Consumes messages from queue
 - Demonstrates real workload
 
-# End-to-End Flow
+## End-to-End Flow
 
 1. Message published to RabbitMQ
 2. Python consumer reads message
@@ -140,6 +141,21 @@ terraform destroy
 - End-to-end observability
 - Real application (Python consumer)
 
+## Challenges & Solutions
+
+### Private Cluster Access
+- Challenge: No public access to EKS
+- Solution: OpenVPN server inside VPC
+
+### Metrics Not Appearing
+- Challenge: Prometheus not scraping RabbitMQ
+- Solution: Fixed ServiceMonitor label mismatch
+
+### Queue Conflict (Durability)
+- Challenge: RabbitMQ queue mismatch error
+- Solution: Ensured consistent durable configuration
+
+  
 ## Future Improvements
 - Add Ingress + custom domain
 - Add CI/CD pipeline (GitHub Actions)
